@@ -201,3 +201,234 @@ This api get called when a user sets a server media as suggested video for his c
         "result": true,
         "error": "User exists with this phoneNumber. Cannot assign VyngId"
         }
+## Set Media View [/api/v2/media/view]    
+
+### Increase View Counter [POST]
+
+This api get called when a user watch medias from server channels. This api send all those media ids to update their view on server.
+
++ Request (application/json)
+
+        {
+        "views": ["3146639d-5e2d-4df1-b5d1-a773255ad907", "400a5f66-31b3-4ebc-a9e8-b8a77fcdf76b"]
+        }
++ Response 200 (application/json)
+
+        {
+        "result": true
+        }
+
+## Caller ID [/api/v2/callerid/{phoneNumber}{?callType}]
+
+Listing all the apis used for caller ID.
+
++ Parameters
+    + phoneNumber: +919876543210 (number, required)
+    + callType: INCOMING (string, optional)- INCOMING/OUTGOING
+
+### Caller ID Data [GET]
+
+This api used to fetch caller id information from server for a particular phone number
+
++ Request
+    + Headers
+
+            Authorization: Bearer authorization token obtained during oauth
+            
++ Response 200 (application/json)
+
+        Response for normal Number
+
+        {
+        "result": true,
+        "callerid": {
+          "id": "7fb5aa31dbdc43288c9712940e77fc06",
+          "phoneNumber": "+919876543210",
+          "name": "टेस्ट कॉन्टैक्ट",
+          "confirmLevel": 0,
+          "category": 0,
+          "spam": 0,
+          "count": 0,
+          "weight": 1,
+          "name1": "name 1",
+          "name2": "name 222",
+          "type": "personal",
+          "notspam": 0,
+          "spamRating": 0,
+          "video": {
+            "videoUrls": {},
+            "thumbnails": {}
+          }
+         }
+        }
+
++ Response 200 (application/json) 
+
+        Response for business Number
+        
+        {
+        "result": true,
+        "callerid": {
+        "id": "5ddb891816e4aa40a1b330d0",
+        "phoneNumber": "+911400450536",
+        "name": "Airtel",
+        "businessName": "Airtel",
+        "colorHex": "#DB3832",
+        "emoji1": "260e",
+        "emoji2": "1f4de",
+        "logo": "airtel",
+        "confirmLevel": 2,
+        "category": 0,
+        "spam": 0,
+        "count": 0,
+        "weight": 0,
+        "type": "premium",
+        "postCall": {
+          "enabled": true,
+          "bg": "https://res.cloudinary.com/demo/image/upload/castle.jpg",
+          "cType": "image/jpeg",
+          "b_text": "Click Here",
+          "b_link": "https://www.google.com/"
+          },
+        "notspam": 0,
+        "spamRating": 0,
+        "video": {
+          "videoUrls": {},
+          "thumbnails": {}
+          }
+         }
+        } 
+        
++ Response 200 (application/json) 
+
+        Response for Registered Number
+        
+        {       
+        "result": true,
+          "callerid": {
+          "id": "86c312620a0046009c2d839a13c42aeb",
+          "phoneNumber": "+919560226526",
+          "name": "Krishan Kant Gupta",
+          "confirmLevel": 2,
+          "category": 0,
+          "spam": 0,
+          "count": 1,
+          "weight": 10000,
+          "video": {
+            "videoUrls": {
+              "720p": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5eb3d525784d527d53906bf2%2Fb9b1a21d-815c-45ce-ab84-1ec8fadca8fd%2Fhd-b9b1a?generation=1588937480923941&alt=media",
+              "480p": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5eb3d525784d527d53906bf2%2Fb9b1a21d-815c-45ce-ab84-1ec8fadca8fd%2Fhd-b9b1a?generation=1588937480923941&alt=media",
+              "hd": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5eb3d525784d527d53906bf2%2Fb9b1a21d-815c-45ce-ab84-1ec8fadca8fd%2Fhd-b9b1a?generation=1588937480923941&alt=media",
+              "sd": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5eb3d525784d527d53906bf2%2Fb9b1a21d-815c-45ce-ab84-1ec8fadca8fd%2Fhd-b9b1a?generation=1588937480923941&alt=media"
+              },
+            "thumbnails": {
+              "large": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5eb3d525784d527d53906bf2%2Fb9b1a21d-815c-45ce-ab84-1ec8fadca8fd%2Fthumbnail-big-b9b1a?generation=1588937480723449&alt=media",
+              "small": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5eb3d525784d527d53906bf2%2Fb9b1a21d-815c-45ce-ab84-1ec8fadca8fd%2Fthumbnail-small-b9b1a?generation=1588937480719835&alt=media"
+              }
+            },
+          "avatar": "",
+          "name1": "",
+          "name2": "",
+          "type": "personal",
+          "notspam": 0,
+          "spamRating": 0
+         }
+        }
+
+## Report CallerID [/api/v2/callerid/report]    
+
+### Report CallerID Data [POST]
+
+This api get called when a user report a callerId data by pressing that improve callerID button.
+
++ Request (application/json)
+
+        {
+        "phoneNumber": "+919876543210",
+        "name": "abc"
+        }
+        
++ Response 200 (application/json)
+        
+        {
+        "result": true
+        }
+        
+## Improve CallerID [/api/v2/contacts]    
+
+### Improve CallerID [POST]
+
+
+This api get called when a user report a callerId & suggest a new data by submitting the form.
+
++ Request (application/json)
+
+        {
+        "contacts": [{
+          "name": "hdhehd",
+          "phoneNumber": "+918447896156"
+          }],
+        "business": true
+        }
+        
++ Response 200 (application/json)
+        
+        {
+        "result": true,
+        "version": 2020050900
+        }
+
+## Report Spam [/api/v2/report-spam]    
+
+### Report a Number as Spam [POST]
+
+This api get called when a user report a number as spam number.
+
++ Request (application/json)
+
+        {
+        "phoneNumber": "+919876543210",
+        }
+        
++ Response 200 (application/json)
+        
+        {
+        "result": true
+        }
+
+## Report Not Spam [/api/v2/report-notspam]    
+
+### Report a Number as Not Spam [POST]
+
+This api get called when a user report a number as not spam number.
+
++ Request (application/json)
+
+        {
+        "phoneNumber": "+919876543210",
+        }
+        
++ Response 200 (application/json)
+        
+        {
+        "result": true
+        }
+
+## Report Postcall Ad [/api/v2/postcall/report]    
+
+### Report Postcall [POST]
+
+This api get called when a user report an ad from business post calls.
+
++ Request (application/json)
+
+        {
+        "phoneNumber": "+919876543210",
+        "url": "https://res.cloudinary.com/demo/image/upload/castle.jpg"
+        }
+        
++ Response 200 (application/json)
+        
+        {
+        "result": true
+        }
