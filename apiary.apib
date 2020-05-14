@@ -1,0 +1,203 @@
+FORMAT: 1A
+HOST: https://api-dev.vyng.me/
+
+# Setting/Un-Setting Videos
+
+Listing all the apis used for setting/unsetting incoming/outgoing/suggested videos
+
+## Incoming Video Ringtone [/api/v2/media/media/set/{mediaId}]
+
+This api get called when you set a server media as yoiur incoming video ringtone.
+It set that media id against your userid.
+
+### Set Server Media as Incoming Video Ringtone [PUT]
+
++ Request
+    + Headers
+
+            Authorization: Bearer authorization token obtained during oauth
+
++ Response 200 (application/json)
+        
+        {
+        "result": true
+        }
+
++ Response 400 (text/plain)
+
+        Bad Request. Missing required param (contact)
+
++ Response 401 (text/plain)
+
+        Unauthorized request
+        
++ Response 404 (text/plain)
+
+        Media cannot be found
+
+## Profile Api [/api/v2/user/profile{?clientData,rand}]
++ Parameters
+    + clientData: 1 (int, optional)
+    + rand: 12342 (timestamp, optional)
+
+### Get User profile Info [GET]
+
+This api get called just after login to get user profile info from server. This api also get called on each app opening to 
+
++ Response 200 (application/json)
+
+        {
+        "result": true,
+        "profilePicture": "https://lh5.googleusercontent.com/-_cPvXMMdPEg/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucn2cK6DqCeNufInFD3vOGGuWZHqZg/photo.jpg",
+        "profileVideo": {
+        "videoUrls": {
+         "sd": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5ebd254228861c76f08097a0%2Fa8346e7c-4d93-4d4a-b3a5-a8602c3749aa%2Fhd-a8346?generation=1589454766030002&alt=media",
+         "sd_share": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5ebd254228861c76f08097a0%2Fa8346e7c-4d93-4d4a-b3a5-a8602c3749aa%2Fcommercial-a8346?generation=1589454816045270&alt=media",
+         "sd_logo": null,
+         "hd": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5ebd254228861c76f08097a0%2Fa8346e7c-4d93-4d4a-b3a5-a8602c3749aa%2Fhd-a8346?generation=1589454766030002&alt=media",
+         "480p": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5ebd254228861c76f08097a0%2Fa8346e7c-4d93-4d4a-b3a5-a8602c3749aa%2Fhd-a8346?generation=1589454766030002&alt=media",
+         "720p": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5ebd254228861c76f08097a0%2Fa8346e7c-4d93-4d4a-b3a5-a8602c3749aa%2Fhd-a8346?generation=1589454766030002&alt=media"
+         },
+        "setBy": {},
+        "audio": {},
+        "thumbnails": {
+         "small": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5ebd254228861c76f08097a0%2Fa8346e7c-4d93-4d4a-b3a5-a8602c3749aa%2Fthumbnail-small-a8346?generation=1589454765767241&alt=media",
+         "large": "https://www.googleapis.com/download/storage/v1/b/vyng-videos-dev/o/5ebd254228861c76f08097a0%2Fa8346e7c-4d93-4d4a-b3a5-a8602c3749aa%2Fthumbnail-big-a8346?generation=1589454765778354&alt=media"
+        },
+        "emoji": [],
+        "updatedAt": "2020-05-14T11:12:46.820Z"
+        },
+        "phoneNumbers": ["+919355424104"],
+        "authProviders": [{
+        "id": "114445193824150967284",
+        "name": "google",
+        "email": "sumsungj7vyng@gmail.com"
+        }, {
+        "id": "fdb5f8fb-943e-4bda-a248-985a32b35365",
+        "name": "otp",
+        "phoneNumber": "+919355424104"
+        }],
+        "clientData": {
+        "customVyngtone": [],
+        "globalVyngtone": {
+          "id": "3146639d-5e2d-4df1-b5d1-a773255ad907"
+          }
+        }
+        }
+### Set User profile Info [PUT]
+
+This api used in different diffrent ways.
+First this api used for setting media id in user profile when user sets any media as his incoming video ringtone or set a media for any contacts as suggested vyngid(custom video ringtone).
+These media ids get returned in get profile calls during reintsalls to restore these.
+
+Second this api used for setting user's outgoing video ringtone.
+
++ Request (application/json)
+
+        {
+         "clientData": {
+            "customVyngtone": [{
+            "phoneNumber": "+918586996900",
+            "id": "36de61b8-9723-415a-a6d9-4228aeb98f18"
+            }],
+            "globalVyngtone": {
+            "id": "3146639d-5e2d-4df1-b5d1-a773255ad907"
+            }    
+        },
+        "vyngDeviceToken": "eJO4AXZbpkc:APA91bGgJ_592ta5aWFVslELbF-7-8dUVoNkMgoLc1SF3AzWzYYRxqFAKQGYDMwQVdm2OBZX5-RZbcqY3C88aUQI3gJuxe6xmORXDxNZkxli9tEuJH2y6sQ7N1uwczMC4azWxFKfwKKW"
+        }
+        
++ Request (application/json)
+
+        {
+        "audioId": "5dce8932d53b94024e354d39",
+        "audioLevel": 72,
+        "emoji": [],
+        "friends": ["5da96f79543cd83aba2037ab", "5e2ad6300dc3cd6e86122a34", "5e61ef69282f3a598f28dcb4", "5e2189328fac5e6b68c9a6c2", "5e9d967428999a207ca94865", "5e2e9508c37320171a4595f6", "5dea2e5dc4eda6016b14e64c", "5eb50e5e784d527d53906c07"],
+        "profileVideo": {
+        "bucketName": "vyng-1148.appspot.com",
+        "path": "5ebd04c528861c76f080979f/mine_caller_id.mp4"
+        }
+        }
+        
++ Response 200 (application/json)
+
+        {
+        "result": true,
+        "videoUrl": ""
+        }
+## Suggested VyngID [/api/v2/user/suggested]    
+
+### Set server media as Suggested Video [POST]
+
+This api get called when a user sets a suggested video for his contact from his local folders.
+
++ Request (application/json)
+
+        {
+        "audioId": "5dce8932d53b94024e354d39",
+        "audioLevel": 50,
+        "firstName": "Whatsapp 2",
+        "lastName": " ",
+        "phoneNumber": "+919315525446",
+        "profileVideo": {
+        "bucket": "vyng-1148.appspot.com",
+        "path": "5ebd04c528861c76f080979f/trimmed1589446533600"
+        }
+        }
++ Response 200 (application/json)
+
+        {
+        "result": true
+        }
+        
++ Response 200 (application/json)
+
+        {
+        "result": false,
+        "responseCode": 1,
+        "error": "This business already has a video ringtone."
+        }
+        
++ Response 402 (application/json)
+
+        {
+        "result": true,
+        "error": "User exists with this phoneNumber. Cannot assign VyngId"
+        }    
+        
+## Suggested VyngID [/api/v2/user/suggested/videotone]    
+
+### Set local media as Suggested Video [POST]
+
+This api get called when a user sets a server media as suggested video for his contact.
+
++ Request (application/json)
+
+        {
+        "audioLevel": 0,
+        "firstName": "Business",
+        "lastName": "Test",
+        "phoneNumber": "+911400450536",
+        "videotoneId": "2f4b0601-fbbd-4dad-b762-90565d59f527"
+        }
++ Response 200 (application/json)
+
+        {
+        "result": true
+        }
+        
++ Response 200 (application/json)
+
+        {
+        "result": false,
+        "responseCode": 1,
+        "error": "This business already has a video ringtone."
+        }
+        
++ Response 402 (application/json)
+
+        {
+        "result": true,
+        "error": "User exists with this phoneNumber. Cannot assign VyngId"
+        }
