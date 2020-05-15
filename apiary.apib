@@ -5,6 +5,8 @@ HOST: https://api-dev.vyng.me/
 
 Listing all the apis used for setting/unsetting incoming/outgoing/suggested videos & all callerid calls.
 
+You need to pass that authorization token & userid in all these api calls.
+
 
 ## Incoming Video Ringtone [/api/v2/media/media/set/{mediaId}]
 
@@ -218,6 +220,26 @@ This api get called when a user watch medias from server channels. This api send
         {
         "result": true
         }
+## Reports an inaccurate video [/api/v2/satellite/flagvideo]    
+
+### Report a Video [POST]
+
+Reports an inaccurate video ( channel or profile video-VyngID )
+
+When user report any video from server channels or VyngId from any user then this api get called.
+
++ Request (application/json)
+
+        {
+        "type": "profile_video",
+        "videoId": "5ebd6e9828861c76f08097a4/74563211-419b-417f-b5f4-efbff0646967/hd-74563"
+        }
++ Response 200 (application/json)
+
+        {
+        "result": true
+        }
+
 
 ## Caller ID [/api/v2/callerid/{phoneNumber}{?callType}]
 
